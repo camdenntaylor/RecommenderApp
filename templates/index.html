@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Recommendation System</h1>
+    
+    <form method="POST">
+        <label for="contentId">Select an Item ID:</label>
+        <select name="contentId" id="contentId">
+            {% for id in content_ids %}
+            <option value="{{ id }}" {% if id==selected_id %} selected {% endif %}>{{ id }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if selected_id %}
+    <h2>Recommendations for Item ID: {{ selected_id }}</h2>
+    
+    <h3>Collaborative Filtering Recommendations</h3>
+    <ul>
+        {% for rec in collab_recs %}
+        <li>{{ rec }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Content-Based Filtering Recommendations</h3>
+    <ul>
+        {% for rec in content_recs %}
+        <li>{{ rec }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+</html>
