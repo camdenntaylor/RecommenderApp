@@ -4,38 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recommendation System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff3b2e;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #ffeaa7;
+        }
+
+        .recommendation-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .recommendation-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: rgba(255, 255, 255, 0.15);
+            margin: 10px auto;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        li:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+    </style>
 </head>
 <body>
-    <h1>Recommendation System</h1>
+    <h1>🚀 Recommendation System</h1>
     
     <form method="POST">
-        <label for="contentId">Select an Item ID:</label>
+        <label for="contentId">🔍 Select an Item ID:</label>
         <select name="contentId" id="contentId">
             {% for id in content_ids %}
             <option value="{{ id }}" {% if id==selected_id %} selected {% endif %}>{{ id }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Get Recommendations</button>
+        <button type="submit">🎯 Get Recommendations</button>
     </form>
 
     {% if selected_id %}
-    <h2>Recommendations for Item ID: {{ selected_id }}</h2>
+    <h2>📝 Recommendations for Item ID: <span style="color:#fdcb6e">{{ selected_id }}</span></h2>
     
-    <h3>Collaborative Filtering Recommendations</h3>
-    <ul>
-        {% for rec in collab_recs %}
-        <li>{{ rec }}</li>
-        {% endfor %}
-    </ul>
+    <div class="recommendation-section">
+        <div class="recommendation-box">
+            <h3>🤝 Collaborative Filtering</h3>
+            <ul>
+                {% for rec in collab_recs %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <h3>Content-Based Filtering Recommendations</h3>
-    <ul>
-        {% for rec in content_recs %}
-        <li>{{ rec }}</li>
-        {% endfor %}
-    </ul>
+        <div class="recommendation-box">
+            <h3>🧠 Content-Based Filtering</h3>
+            <ul>
+                {% for rec in content_recs %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% endif %}
-
 </body>
 </html>
